@@ -21,17 +21,6 @@ export const createInstance = async (contractAddress: string, account: Signer, e
 
     const instance = await fhevmjs.createInstance({ chainId, publicKey });
 
-    if (chainId == 31337n || true) {
-        instance.encryptBool = createUintToUint8ArrayFunction(1);
-        instance.encrypt4 = createUintToUint8ArrayFunction(4);
-        instance.encrypt8 = createUintToUint8ArrayFunction(8);
-        instance.encrypt16 = createUintToUint8ArrayFunction(16);
-        instance.encrypt32 = createUintToUint8ArrayFunction(32);
-        instance.encrypt64 = createUintToUint8ArrayFunction(64);
-        instance.encryptAddress = createUintToUint8ArrayFunction(160);
-        instance.decrypt = (_, hexadecimalString) => BigInt(hexadecimalString);
-        instance.decryptAddress = (_, hexadecimalString) => ethers.getAddress(hexadecimalString.slice(26, 66));
-    }
     await generatePublicKey(contractAddress, account, instance);
 
     return instance;
