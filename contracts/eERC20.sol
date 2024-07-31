@@ -6,7 +6,7 @@ import "fhevm/lib/TFHE.sol";
 import "fhevm-contracts/contracts/token/ERC20/EncryptedERC20.sol";
 
 contract eERC20 is EncryptedERC20 {
-    constructor() EncryptedERC20("encryptedToken", "eERC20") {
-        _mint(10000, msg.sender);
+    constructor(uint64 amount) EncryptedERC20("encryptedToken", "eERC20") {
+        _mint(amount, msg.sender);
     }
 }

@@ -1,6 +1,6 @@
-import { toBufferBE } from "bigint-buffer";
 import { Signer } from "ethers";
 import fhevmjs, { FhevmInstance, getPublicKeyCallParams } from "fhevmjs";
+import { ethers as hethers } from "hardhat";
 
 export const createInstance = async (contractAddress: string, account: Signer, ethers: typeof hethers) => {
     let chainId: number;
@@ -18,7 +18,6 @@ export const createInstance = async (contractAddress: string, account: Signer, e
     } catch (e) {
         publicKey = undefined;
     }
-
     const instance = await fhevmjs.createInstance({ chainId, publicKey });
 
     await generatePublicKey(contractAddress, account, instance);
@@ -39,11 +38,3 @@ const generatePublicKey = async (contractAddress: string, signer: Signer, instan
     );
     instance.setSignature(contractAddress, signature);
 };
-
-function createUintToUint8ArrayFunction(numBits: number) {
-    const numBytes = Math.ceil(numBits / 8);
-    return function (uint: number | bigint | boolean) {
-        const buffer = toBufferBE(BigInt(uint), numBytes);
-        return buffer;
-    };
-}
