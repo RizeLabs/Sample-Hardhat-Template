@@ -6,7 +6,7 @@ const config: HardhatUserConfig = {
   networks: {
     local: {
       url: `http://localhost:8545`,
-      accounts: ["<PRIVATE_KEY>"]
+      accounts: [`<PRIVATE_KEY>`],
     }
   }
 };

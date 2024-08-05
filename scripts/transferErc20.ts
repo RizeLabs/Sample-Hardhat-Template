@@ -16,22 +16,22 @@ async function main() {
     let eERC20Address = await eERC20.getAddress();
 
     // Create fhevmjs instance to encrypt transfer amount
-    const instance = await createInstance(eERC20Address, deployer, ethers);
+    const instance = await createInstance();
     const transferAmountPlaintext = 1000;
     console.log(`Plaintext transfer amount: ${ethers.formatUnits(transferAmountPlaintext, DECIMALS)} eERC20`);
-    const encryptedAmount = instance.encrypt64(transferAmountPlaintext);
+    const input = instance.createEncryptedInput(eERC20Address, deployer.address)
+    input.add64(transferAmountPlaintext);
+    const encryptedAmount = input.encrypt();
     console.log("Encrypted amount:", encryptedAmount);
 
     const eERC20Instance = await ethers.getContractAt('eERC20', eERC20Address, deployer);
     const recipientAddress = "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
     console.log(`Transferring to ${recipientAddress}...`);
 
-    const tx = await eERC20Instance["transfer(address,bytes)"](
+    const tx = await eERC20Instance["transfer(address,bytes32,bytes)"](
         recipientAddress,
-        encryptedAmount,
-        {
-            gasLimit: 10000000
-        }
+        encryptedAmount.handles[0],
+        encryptedAmount.inputProof,
     );
     await tx.wait();
     console.log("Transfer successful!");
