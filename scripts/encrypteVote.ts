@@ -13,8 +13,7 @@ async function main() {
     const SimpleVotingContractInstance = await ethers.getContractAt('SimpleVoting', SimpleVotingContractAddress, deployer);
 
     // let's add a proposal first 
-    let txn = await SimpleVotingContractInstance["addProposal(address,string)"](
-        deployer.address,
+    let txn = await SimpleVotingContractInstance["addProposal(string)"](
         "Proposal 1",
     );
 
@@ -27,13 +26,13 @@ async function main() {
     console.log(`Plaintext vote: ${vote}`);
     const input = instance.createEncryptedInput(SimpleVotingContractAddress, deployer.address)
     input.addBool(vote);
-    const { handle, data } = input.encrypt();
-    console.log("Encrypted vote (handle, data):", handle, data);
+    const { handles, inputProof } = input.encrypt();
+    console.log("Encrypted vote (handle, data):", handles[0], inputProof);
 
-    txn = await SimpleVotingContractInstance["voteProposal(address,bytes32)"](
+    txn = await SimpleVotingContractInstance["voteProposal(address,bytes32,bytes)"](
         deployer.address,
-        handle[0],
-        data
+        handles[0],
+        inputProof
     );
 
     await txn.wait();
