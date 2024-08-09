@@ -18,6 +18,7 @@ contract SimpleVoting {
     function addProposal(string calldata _proposalName) public {
         Proposals[msg.sender] = Proposal(TFHE.asEuint16(0), _proposalName);
         Proposal memory _proposal = Proposals[msg.sender];
+        TFHE.allow(_proposal.totalVotes, address(this));
         TFHE.allow(_proposal.totalVotes, msg.sender);
     }
 
@@ -31,7 +32,7 @@ contract SimpleVoting {
 
         // allow msg.sender to use this encrypted total votes value
         // rememeber something like ACL (Access Control List) table in docs
-        TFHE.isSenderAllowed(_candidateProposal.totalVotes);
+        TFHE.allowTransient(_candidateProposal.totalVotes, msg.sender);
 
         // updating votes
         _candidateProposal.totalVotes = TFHE.select(userVote, TFHE.add(_candidateProposal.totalVotes, 1), TFHE.add(_candidateProposal.totalVotes, 0));
