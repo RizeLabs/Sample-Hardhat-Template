@@ -5,7 +5,6 @@
     "hardhat": "^2.22.6"
   },
   "dependencies": {
-    "fhevm": "^0.5.1",
-    "solidity-comments-darwin-arm64": "^0.1.1"
+    "fhevm": "0.5.1"
   }
 }
