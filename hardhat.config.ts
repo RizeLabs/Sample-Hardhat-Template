@@ -6,7 +6,7 @@ const config: HardhatUserConfig = {
   networks: {
     encifher: {
       url: `https://rpc.encifher.io`,
-      accounts: [`0xdccad5981ea29ed47ce96ed4860c455927703771f526f6d177986a3fd14f0a36`],
+      accounts: [`0x6cfde5e65d2a1521998767a492182726cab6f067be446a79e181f4b5ac0abf78`],
       timeout: 10000000, // need to increase the timeout here 
     }
   }
