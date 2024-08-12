@@ -3,7 +3,7 @@ import { ethers } from "hardhat"
 
 async function main() {
     const [deployer] = await ethers.getSigners();
-
+    console.log("Deploying contracts with the account:", deployer.address);
     // Deploy SimpleVoting contract
     const SimpleVotingFactory = await ethers.getContractFactory("SimpleVoting");
     let SimpleVoting = await SimpleVotingFactory.connect(deployer).deploy();

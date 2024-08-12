@@ -7,7 +7,7 @@ const config: HardhatUserConfig = {
     encifher: {
       url: `https://rpc.encifher.io`,
       accounts: [`0x6cfde5e65d2a1521998767a492182726cab6f067be446a79e181f4b5ac0abf78`],
-      timeout: 10000000, // need to increase the timeout here 
+      timeout: 1000000000, // need to increase the timeout here 
     }
   }
 };
