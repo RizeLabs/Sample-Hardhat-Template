@@ -1,5 +1,14 @@
 # Sample Hardhat Template
 
+## Prerequisite 
+
+Make sure you have atleast one package manager
+- npm - [install npm](https://nodejs.org/en/download/source-code)
+- yarn -  [install yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
+- pnpm - [install pnpm](https://pnpm.io/installation)
+
+Make sure you are using nodejs version equal to or greater than `20.0.0`
+
 ## Steps to run!
 
 ### Installing template 🏗️
